@@ -1,11 +1,12 @@
-@extends('layouts.app')]
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
+@extends('layouts.app')
+<!--<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">-->
+    <!--<head>
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1">-->
 
-        <title>Admin Panel</title>
+       @section('title', 'Admin Panel')
+       
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
@@ -20,6 +21,13 @@
                 height: 100vh;
                 margin: 0;
             }
+            body  {
+      background-image: url("/SistemaLanchonete0.1/images/AdminBackground.jpg");
+      	
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    }
 
             .full-height {
                 height: 100vh;
@@ -50,7 +58,7 @@
             }
 
             .links > a {
-                color: #636b6f;
+                color: black;
                 padding: 0 25px;
                 font-size: 13px;
                 font-weight: 600;
@@ -62,14 +70,23 @@
             .m-b-md {
                 margin-bottom: 30px;
             }
+
+            #options{
+                opacity: 75%;
+                font-weight: bold;
+            }
+
         </style>
-    </head>
-    <body>
+    <!--</head>-->
+    <!--<body>-->
+        @section('content')
+            
+        
         <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
-                        <a href="{{ url('/home') }}">Home</a>
+                        <a href="{{ url('/') }}">Inicio</a>
                     @else
                         <a href="{{ route('login') }}">Login</a>
 
@@ -82,24 +99,29 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Painel De Admin
+                     Painel de Administração
                 </div>
 
-            <a href = "{{route('admin.logout')}}">Logout</a>
 
+                <div class="card" id="options">
+                    <div class="card-body">
                 <div class="links">
+                    
                 <a href="{{route('admin.register')}}">Novo Usuário</a>
                 <a href="{{route('products.create')}}">Adicionar Produto</a>
                 <a href="{{route('products.edit', 'id')}}">Editar Produto</a>
                 <a href="{{route('products.show', 'id')}}">Excluir Produto</a>
                 <a href="{{route('allusers.index')}}">Exibir Usuários</a>
                 <a href="{{route('allusers.edit', 'id')}}">Editar Role de usuário</a>
-
                 <a href="{{route('allusers.show','id')}}">Excluir usuário</a>
-
-                   
+                <a href = "{{route('admin.logout')}}">Logout</a>
+            </div>
+            </div>
+                    
                 </div>
             </div>
         </div>
-    </body>
-</html>
+        
+        @endsection
+    <!--</body>-->
+<!--</html>-->

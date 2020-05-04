@@ -97,14 +97,14 @@ class userController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Deleta o usuário pelo UserId que vem do form.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request , $id)
     {
-        //Deleta o usuário pelo UserId do form. 
+       
         
         $userDestroy = userModel::where('user_id', '=', $request->UserId)->delete();
 

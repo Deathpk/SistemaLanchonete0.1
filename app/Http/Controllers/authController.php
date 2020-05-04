@@ -2,20 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\User;
 use App\Http\Requests\loginAuthRequest;
 use App\Models\userModel;
+use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Auth;
 
 class authController extends Controller
 {
     // Controller para o dashboard admin
     
+    
     public function dashboard(){
+/*
+* Se o usuário estiver logado , e o id for igual a 1 (id da conta admin) , então redireciona pro dash , senão redireciona pro login de
+*/
+        if (Auth::check() === true && Auth::id() == 1){ 
 
-        if (Auth::check() === true){
-            
             return view('admin.dashboard');
         }
         else{
