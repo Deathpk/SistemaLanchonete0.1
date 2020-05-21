@@ -51,6 +51,7 @@ class productsController extends Controller
     public function store(storeProductRequest $request)
     {
         //Guarda os dados do produto a ser adicionado no DB.
+        
       $prodId = $request->Prodid;
         $prodIdDB = productModel::where('id', '=', $prodId)->exists(); // exists retorna true ou false , se o item existe.
         if ($prodIdDB!=false){

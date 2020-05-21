@@ -88,7 +88,8 @@
                 <div class="links">
                 <a href="{{route('cardapio')}}">Cardápio</a>
                 <a href="{{route('admin')}}">Administrador</a>
-                    
+                <a href="{{route('caixaShow')}}">Caixa</a>
+                
                 </div>
             </div>
         </div>

@@ -36,3 +36,15 @@ Route::get('/cardapio', 'cardapioController@showCardapio')->name('cardapio');
 //Rotas para products
 Route::resource('products', 'productsController');
 
+//Rotas do controller Caixa
+Route::get('caixa', 'Caixa\caixaController@show')->name('caixaShow');
+Route::post('caixa/show', 'Caixa\caixaController@showItens')->name('caixaShowItens');
+Route::post('caixa/show/itemsprev','Caixa\caixaController@currentTransaction')->name('caixaShowPrev');
+
+Route::get('cart', 'cartController@addToCart')->name('Cart/Add');
+Route::put('cart', 'cartController@addToCart')->name('Cart/Add');
+Route::put('cart/remove', 'cartController@removeProd')->name('Cart/Remove');
+
+/*Rotas de session
+Route::get('session', 'SessionController@session')->name('Session');
+Route::put('session', 'SessionController@session')->name('Session');*/
