@@ -14,7 +14,6 @@ class authController extends Controller
 {
     // Controller para o dashboard admin
     
-    
     public function dashboard(){
 /*
 * Se o usuário estiver logado , e o id for igual a 1 (id da conta admin) , então redireciona pro dash , senão redireciona pro login de
@@ -35,20 +34,15 @@ class authController extends Controller
 
     public function login(loginAuthRequest $request){
 
-        
-
         $credentials = [
             'email' => $request->email,
             'password' => $request->password,
 
         ];
-
-       $passwordTest = userModel::where('email','=',$request->email)->get('password'); // Pega a senha de onde o email inserido é igual ao do formulário , para fazer o teste depois.
+        $passwordTest = userModel::where('email','=',$request->email)->get('password'); // Pega a senha de onde o email inserido é igual ao do formulário , para fazer o teste depois.
         
-
         if (Auth::attempt($credentials)){
             return redirect()->route('admin');
-        
             }
             
         else{
@@ -58,9 +52,7 @@ class authController extends Controller
             }
             
         }
-        
-        
-        }
+    }
 
     public function logout(){
         Auth::logout();

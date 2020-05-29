@@ -46,7 +46,7 @@
     <option value = "Bebida">Bebida</option>
     <option value = "Sobremesa">Sobremesa</option>
 </select>
-<input type="number" name="Prodvalue" placeholder="Valor do produto:" value= "{{old('Prodvalue')}}">
+<input type="number" step="0.01" name="Prodvalue" placeholder="Valor do produto:" value= "{{old('Prodvalue')}}">
 <button type="submit">ConfirmarEdição</button>
 </form>
 </div>

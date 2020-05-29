@@ -10,13 +10,8 @@ use App\Http\Requests\updateProductRequest;
 
 class productsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-
-     public function __construct(Request $request)
+    
+    public function __construct(Request $request)
      {
        $this->middleware('auth')->only([
 
@@ -25,41 +20,31 @@ class productsController extends Controller
         ]);
          }
 
-
-    public function index()
-    {
-      
-    }
-
     /**
-     * Show the form for creating a new resource.
+     * Retorna a view para criação de produto.
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        // Create an product.
         return view('admin.createProduct');
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Guarda os dados do produto a ser adicionado no DB..
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(storeProductRequest $request)
     {
-        //Guarda os dados do produto a ser adicionado no DB.
-        
-      $prodId = $request->Prodid;
+        $prodId = $request->Prodid;
         $prodIdDB = productModel::where('id', '=', $prodId)->exists(); // exists retorna true ou false , se o item existe.
         if ($prodIdDB!=false){
     echo "ID de produto já existente!";
     return view('admin.createProduct');
 }
 else{
-
 
         $ProductData = productModel::insert(['id'=>$request->Prodid, 'name'=>$request->Prodname, 'type'=>$request->Prodtype,
         'price'=>$request->Prodvalue ]);
@@ -76,32 +61,29 @@ else{
     }
 }
     /**
-     * Display the specified resource.
+     * retorna para a view delete Product , com um id :).
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        // retorna para a view delete Product , com um id :)
         return view('admin.deleteProduct', compact('id'));
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Retorna a view para editar produto , com um Id.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        //Editar o produto
-        
         return view('admin.editProduct', compact('id'));
     }
 
     /**
-     * Update the specified resource in storage.
+     * Salva as alterações vindas do editProduct.blade.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -109,8 +91,6 @@ else{
      */
     public function update(updateProductRequest $request, $id)
     {
-        //Salva as alterações mandadas do editProduct.blade
-        
         $ProdUpdate = productModel::where('id' , '=', $request->Prodid)->update(['name'=>$request->Prodname, 'type'=>$request->Prodtype,'price'=>$request->Prodvalue]);
 
         if($ProdUpdate){
@@ -124,14 +104,14 @@ else{
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Deleta um produto do DB.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy(destroyProductRequest $request, $id)
     {
-        //Deleta um produto do DB.
+        
         $ProdDestroy = productModel::where('id', '=', $request->Prodid)->delete();
         if ($ProdDestroy){
             echo "Produto Deletado com sucesso.";

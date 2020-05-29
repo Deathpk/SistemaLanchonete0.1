@@ -108,12 +108,13 @@
                 <div class="links">
                     
                 <a href="{{route('admin.register')}}">Novo Usuário</a>
-                <a href="{{route('products.create')}}">Adicionar Produto</a>
-                <a href="{{route('products.edit', 'id')}}">Editar Produto</a>
-                <a href="{{route('products.show', 'id')}}">Excluir Produto</a>
                 <a href="{{route('allusers.index')}}">Exibir Usuários</a>
                 <a href="{{route('allusers.edit', 'id')}}">Editar Role de usuário</a>
                 <a href="{{route('allusers.show','id')}}">Excluir usuário</a>
+                <a href="{{route('products.create')}}">Adicionar Produto</a>
+                <a href="{{route('products.edit', 'id')}}">Editar Produto</a>
+                <a href="{{route('products.show', 'id')}}">Excluir Produto</a>
+                <a href="{{route('admin.financeiro')}}">Financeiro</a>
                 <a href = "{{route('admin.logout')}}">Logout</a>
             </div>
             </div>

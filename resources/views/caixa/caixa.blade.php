@@ -1,7 +1,9 @@
 @extends ('Layouts.app')
 
 @section('title', 'Sistema de caixa')
+<link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
 <style>
+
     body  {
       background-image: url("/SistemaLanchonete0.1/images/CardapioBackground.jpg");
       	
@@ -19,6 +21,13 @@
     #productListCard{
       float: left;
     }
+    #Carrinho{
+      font-family: 'Lobster', cursive;
+      width: 600px;/*width é largura!*/
+      float: center;
+      padding-right: 100px;
+  }
+  
     
     
     </style>
@@ -57,7 +66,7 @@
   </div>
   
 <!-- Carrinho -->
-
+<div class="container-fluid" id= "Carrinho">
 <div class="card text-center">
   <h1>Carrinho</h1>
   <div class="card-body">
@@ -70,19 +79,36 @@
       @csrf
       @method('PUT')
      <ul>
-        <li>{{$item->name}} - {{$item->price}} R$ <button type="submit" class="btn btn-warning" id="prod" name="prod" value={{$item->id}} >Remover</button></li>
+        {{$item->name}} - {{$item->price}} R$ <button type="submit" class="btn btn-warning" id="prod" name="prod" value={{$item->id}} >Remover</button></li>
         </ul>
       </form>
     @endforeach
     @endif
+
+    @if(!isset($showCartPrev))
+      Vazio...
+      <br>
+    @endif
+
     <!-- Subtotal -->
     Subtotal: @if (isset($total))
         {{$total}}
-        @endif
+        @endif R$
     <br>
+    <!-- Finalizar Pedido-->
+    <form action="{{route('Cart/Checkout')}}" method="post">
+      @csrf
+      @method('PUT')
+    <button type="submit" class="btn btn-success">Finalizar Pedido</button>
+    </form>
+
+    <form action="{{route('Cart/Renew')}}" method="get">
+      @csrf
+      <button type="submit" class="btn btn-danger">Esvaziar Carrinho</button>
+    </form>
   </div>
 </div>
- 
+</div>
   
 @if ($errors->any())
 <ul>

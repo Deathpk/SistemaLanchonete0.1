@@ -1,8 +1,9 @@
 @extends ('Layouts.app')
 
-@section('title', 'Sistema de caixa')
+@section('title', 'Financeiro')
 <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
 <style>
+
     body  {
       background-image: url("/SistemaLanchonete0.1/images/CardapioBackground.jpg");
       	
@@ -20,7 +21,15 @@
     #productListCard{
       float: left;
     }
-   
+    #Carrinho{
+      font-family: 'Lobster', cursive;
+      width: 600px;/*width é largura!*/
+      float: center;
+      padding-right: 100px;
+  }
+  
+    
+    
     </style>
 @section('content')
 
@@ -33,30 +42,20 @@
     <a href="{{ URL::previous() }}" class="w3-bar-item w3-button">VOLTAR</a>
       </div>
   </div>
+  <!-- endNavbar (sit on top) -->
   
-  <div class="card text-center" id="title">
-    <h1>Sistema de Caixa</h1>
+<!-- Carrinho -->
+<div class="container-fluid" id= "fechamentoResult">
+<div class="card text-center">
+  <h1>Fechamento do Mês {{$month}} </h1>
+  <div class="card-body">
+    <h2 style="font-family: 'Lobster', cursive">Total de Lucros: </h2>
+    <br>
+    <h3 style="font-family: 'Lobster', cursive">{{$totalMonth}} R$</h3>
   </div>
-  <br>
-<div class="card text-center" id="productListCard">
-    <h1 style="font-family:'Lobster', cursive">Produtos</h1>
-    <div class="card-body">
- <!-- ItemSelected é o tipo de produto escolhido -->
-   @foreach($itemSelected as $item) 
-    <form action="{{route('Cart/Add')}}" method="post">
-    @csrf
-    @method('PUT')
-     <select multiple class="form-control" id="produto" name="produto">
-     <option value="{{$item->id}}" > ID: {{$item->id}}| {{$item->name}}| R$: {{$item->price}}</option>
-     </select>
-   <br>
-   @endforeach
-   <br>
- </div>
- <button type="submit" class="btn btn-primary">Adicionar</button>
-</form>
-
-
+</div>
+</div>
+  
 @if ($errors->any())
 <ul>
 @foreach($errors->all() as $error)
@@ -64,7 +63,5 @@
 @endforeach
 </ul>
 @endif
-<br>
-
 @endsection
 
