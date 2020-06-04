@@ -12,7 +12,6 @@ class cardapioController extends Controller
         $Comida = productModel::where('type','=','Comida')->get('*');
         $Bebida = productModel::where('type','=','Bebida')->get('*');
         $Sobremesa = productModel::where('type','=','Sobremesa')->get('*');
-
         return view('cardapio', compact('Comida', 'Bebida', 'Sobremesa'));
     }
-}
+    }

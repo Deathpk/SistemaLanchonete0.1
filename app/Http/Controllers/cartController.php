@@ -13,46 +13,41 @@ class cartController extends Controller
 {
     //Adiciona o produto escolhido na tabela Cart do banco.
     public function addToCart(Request $request){
-
+        
         $product = $request->produto; // ID do produto selecionado.
-        $itemInfo = productModel::where('id', '=', $product)->select('name', 'price')->get();// pega o nome  e preço do produto selecionado por id   
-        $insert = cartModel::insert(['id'=> $product ,'name' => $itemInfo[0]->name, 'price'=> $itemInfo[0]->price]); // Insere o produto selecionado no carrinho.
+        $itemInfo = productModel::where('id', '=', $product)->select('name', 'price')->get();// pega o nome  e preço do produto selecionado por id
+        cartModel::insertTest($itemInfo, $product);  //Passa o nome e preço para a função estática no Model , para ser feita a inserção.
         $showCartPrev = cartModel::get('*'); // Pega todos os produtos do cart para preview.
-
         //queries para calculo do total.
-        $tot = cartModel::select('price')->get('*');
-        $total = $tot->sum('price'); // faz a soma da collection $subtot contendo o price , e armazena na variavel $subtotal.
-        
-        if($insert){
-            return view('caixa.caixa', compact('showCartPrev', 'total'));
-        }
-        else{
-            echo "Deu bosta!";
-        }
-        
+          $tot = cartModel::select('price')->get('*');
+          $total = $tot->sum('price'); // faz a soma da collection $subtot contendo o price , e armazena na variavel $subtotal.
+            
+           if($showCartPrev !=null){
+               return view('caixa.caixa', compact('showCartPrev', 'total'));
+           }
+           else{
+              echo "Não foi possível inserir o produto , tente novamente!";
+           }
     }
+    
     //Remove produto do cart
    public function removeProd(Request $request){
         
     $product = $request->prod; // ID do produto selecionado.
-     $dropItem = cartModel::where('id' , '=' , $product)->delete();
+     cartModel::dropItem($product); // Remove o produto do carrinho.
      //queries para calculo do total.
      $tot = cartModel::select('price')->get('*');
      $total = $tot->sum('price'); // faz a soma da collection $subtot contendo o price , e armazena na variavel $subtotal.
-
      $showCartPrev = cartModel::get('*'); // Pega todos os produtos do cart para preview.
     return view('caixa.caixa', compact('showCartPrev', 'total'));
-        
-    }
+  }
 
-// Adiciona os dados do pedido atual na tabela de pedidos , para depois ser feito o fechamento :)
+ // Adiciona os dados do pedido atual na tabela de pedidos , para depois ser feito o fechamento :)
     public function checkOut(){
        $itemInfo = cartModel::select('name', 'price')->get('*');// pega o nome e preço de todos produtos da tabela cart.
-
-    //queries para calculo do total.
+        //queries para calculo do total.
     $total = $itemInfo->sum('price');
     return view('caixa.checkOut', compact('itemInfo', 'total')); 
-
     }
 
     public function posCheckout(Request $request){
@@ -65,7 +60,7 @@ class cartController extends Controller
         $date = now(); // data atual para inserir no banco
         // Insert do carrinho na tabela de carrinhos.
         if($total != 0){
-            $saveCart = savedCartsModel::insert(['total'=>$total,'date'=>$date]); // Salva o valor e data da compra na tabela de carrinhos salvos.
+            savedCartsModel::saveCart($total, $date); // Salva o carrinho.
         }
         
         if($vlrRecebido != null){ 
@@ -76,11 +71,9 @@ class cartController extends Controller
             return view('caixa.posCheckOut', compact('total', 'itemInfo'));
         }
     }
-
     //Esvazia o Carrinho de compras , para novo uso.
     public function dropCart(){
-        $dropCart = cartModel::select('id', 'name', 'price')->delete();
+        cartModel::clearCart();
         return view('welcome');
     }
-    
 }

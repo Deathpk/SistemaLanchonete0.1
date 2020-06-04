@@ -9,5 +9,4 @@ class productModel extends Model
     //Model da table products
     protected $table = 'products';
     public $timestamps = false;
-
 }
