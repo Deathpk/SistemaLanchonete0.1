@@ -26,13 +26,26 @@
 <h1>Deletar Produtos</h1>
   </div>
   <br>
-@if ($errors->any())
-<ul>
-@foreach($errors->all() as $error)
-<li>{{$error}}</li>
-@endforeach
-</ul>
-@endif
+  
+  @if ($errors->any())
+  @foreach($errors->all() as $msg)
+  <div class="alert alert-danger">
+  {{$msg}}
+  </div>
+  @endforeach
+  @endif
+
+  @if(isset($error))
+  <div class="alert alert-danger">
+      {{$error}}
+  </div>
+  @endif
+  
+  @if(isset($success))
+  <div class="alert alert-success">
+      {{$success}}
+  </div>
+  @endif   
 
 
 

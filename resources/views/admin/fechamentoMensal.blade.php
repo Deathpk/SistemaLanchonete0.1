@@ -57,11 +57,23 @@
 </div>
   
 @if ($errors->any())
-<ul>
-@foreach($errors->all() as $error)
-<li>{{$error}}</li>
+@foreach($errors->all() as $msg)
+<div class="alert alert-danger">
+{{$msg}}
+</div>
 @endforeach
-</ul>
 @endif
+
+@if(isset($error))
+<div class="alert alert-danger">
+    {{$error}}
+</div>
+@endif
+
+@if(isset($success))
+<div class="alert alert-success">
+    {{$success}}
+</div>
+@endif   
 @endsection
 

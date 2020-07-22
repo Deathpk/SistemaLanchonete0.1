@@ -9,9 +9,7 @@ use Illuminate\Support\Facades\Session;
 
 class caixaController extends Controller
 {
-    private $subTotal = [];
-    private $Total= [];
-    private $Items = [];
+    
     
     //mostra a view do caixa.
     public function show(){

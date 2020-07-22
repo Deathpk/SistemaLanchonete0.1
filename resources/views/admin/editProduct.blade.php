@@ -27,11 +27,26 @@
 <br>
 @if ($errors->any())
 <ul>
-@foreach($errors->all() as $error)
-<li>{{$error}}</li>
+@foreach($errors->all() as $msg)
+<div class="alert alert-danger">
+<li>{{$msg}}</li>
+</div>
 @endforeach
 </ul>
 @endif
+
+@if(isset($error))
+<div class="alert alert-danger">
+    {{$error}}
+</div>
+@endif
+
+@if(isset($success))
+<div class="alert alert-success">
+    {{$success}}
+</div>
+@endif   
+
 
 <div class="card" id="item">
     <div class="card-body">

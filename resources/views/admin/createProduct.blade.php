@@ -25,15 +25,29 @@
     <div class="card text-center">
         <h1>Adicionar Produtos</h1>
     </div>
+    <br>
+    @if ($errors->any())
+    @foreach($errors->all() as $msg)
+    <div class="alert alert-danger">
+    {{$msg}}
+    </div>
+    @endforeach
+    @endif
 
-<br>
-@if ($errors->any())
-<ul>
-@foreach($errors->all() as $error)
-<li>{{$error}}</li>
-@endforeach
-</ul>
-@endif
+
+    @if(isset($error))
+    <div class="alert alert-danger">
+        {{$error}}
+    </div>
+    @endif
+    
+    @if(isset($success))
+    <div class="alert alert-success">
+        {{$success}}
+    </div>
+    @endif   
+        
+    <br>
 <div class="card" id="item">
     <div class="card-body">
 <form action="{{route('products.store')}}" method="post">
